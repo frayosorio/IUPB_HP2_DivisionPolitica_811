@@ -16,6 +16,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import servicios.PaisServicio;
+
 public class FrmDivisionPolitica extends JFrame {
 
     private JTree arbol;
@@ -69,7 +71,8 @@ public class FrmDivisionPolitica extends JFrame {
     }
 
     private void cargarDatos() {
-
+        PaisServicio.cargarDatos();
+        PaisServicio.mostrar(nodoRaiz);
     }
 
     private void mostrarMapa() {
