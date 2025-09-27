@@ -75,8 +75,28 @@ public class FrmDivisionPolitica extends JFrame {
         PaisServicio.mostrar(nodoRaiz);
     }
 
-    private void mostrarMapa() {
+    private String obtenerPais(DefaultMutableTreeNode nodoSeleccionado) {
+        while (nodoSeleccionado != null) {
+            if (nodoSeleccionado.getParent() == nodoRaiz) {
+                // Si el nodo padre es la raíz, estamos en un nodo Pais
+                return nodoSeleccionado.toString()
+                        .replace("á", "a")
+                        .replace("é", "e")
+                        .replace("í", "i")
+                        .replace("ó", "o")
+                        .replace("ú", "u");
+            }
+            nodoSeleccionado = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
+        }
+        return "";
+    }
 
+    private void mostrarMapa() {
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) arbol.getLastSelectedPathComponent();
+        if (nodoSeleccionado != null) {
+            String nombrePais = obtenerPais(nodoSeleccionado);
+            PaisServicio.mostrarMapa(lblMapa, nombrePais);
+        }
     }
 
     private void reproducirHimno() {
